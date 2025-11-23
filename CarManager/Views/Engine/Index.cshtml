@@ -1,0 +1,50 @@
+﻿@model IEnumerable<CarManager.Models.EngineModel>
+
+@{
+    ViewData["Title"] = "Engines";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<!-- Create engine -->
+<a asp-action="Create" class="btn btn-success mb-2">Create New Engine</a>
+
+<!-- Engine list -->
+@if (Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Type</th>
+                <th>Manufacturer</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Cars Count</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var engine in Model)
+            {
+                <tr>
+                    <td>@engine.Code</td>
+                    <td>@engine.TypeEngine</td>
+                    <td>@engine.Manufacturer</td>
+                    <td>@engine.DateStarted.ToShortDateString()</td>
+                    <td>@engine.DateEnded.ToShortDateString()</td>
+                    <td>@engine.Cars.Count()</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@engine.Id" class="btn btn-sm btn-primary">Edit</a>
+                        <a asp-action="Details" asp-route-id="@engine.Id" class="btn btn-sm btn-info">Details</a>
+                        <a asp-action="Delete" asp-route-id="@engine.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-warning">No engines found. <b>Create one</b></div>
+}

@@ -1,0 +1,26 @@
+﻿@model CarManager.Models.GarageModel
+
+@{
+    ViewData["Title"] = "Delete Garage";
+}
+
+<!-- Title & Desc -->
+<h2>@ViewData["Title"]</h2>
+<h3>Are you sure you want to delete this garage?</h3>
+
+<!-- Garage details-->
+<div>
+    <h4>@Model.Name</h4>
+    <p><strong>Address:</strong> @Model.Address</p>
+    <p><strong>Capacity:</strong> @Model.Capacity</p>
+    <p><strong>Has Security:</strong> @(Model.HasSecurity ? "Yes" : "No")</p>
+    <p><strong>Open 24 Hours:</strong> @(Model.IsOpen24Hours ? "Yes" : "No")</p>
+    <p><strong>Monthly Fee:</strong> @Model.RentFee.ToString("C")</p>
+</div>
+
+<!-- Actions -->
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</form>

@@ -1,0 +1,33 @@
+﻿@model CarManager.Models.CarModel
+
+@{
+    ViewData["Title"] = "Assign Car";
+    var garageId = ViewBag.GarageId;
+    var cars = ViewBag.Cars as List<CarManager.Models.CarModel>;
+}
+
+<!-- Title -->
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="AssignCar" method="post">
+
+    <!-- Garage ID -->
+    <input type="hidden" name="garageId" value="@garageId" />
+
+    <!-- Car selector -->
+    <div class="form-group">
+        <label>Select Car</label>
+        <select class="form-control" name="carId" required>
+            <option value="">--Select Car--</option>
+            @foreach (var car in cars)
+            {
+                <option value="@car.Id">@car.Brand (@car.Engine)</option>
+            }
+        </select>
+    </div>
+
+    <!-- Actions -->
+    <button type="submit" class="btn btn-primary">Assign</button>
+    <a asp-action="Details" asp-route-id="@garageId" class="btn btn-secondary">Back</a>
+
+</form>

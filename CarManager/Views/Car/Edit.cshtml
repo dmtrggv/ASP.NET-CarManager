@@ -1,0 +1,61 @@
+﻿@model CarManager.Models.CarModel
+
+@{
+    ViewData["Title"] = "Create/Edit Car";
+	var ttl = ViewData["Title"].ToString().Contains("Create") ? "Create Car" : "Edit Car";
+}
+
+<!-- Title -->
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="@ttl" method="post">
+
+    <!-- ID -->
+    <input type="hidden" asp-for="Id" />
+
+    <!-- Brand -->
+    <div class="form-group">
+        <label asp-for="Brand"></label>
+        <input asp-for="Brand" class="form-control" />
+        <span asp-validation-for="Brand" class="text-danger"></span>
+    </div>
+
+    <!-- Mileage -->
+    <div class="form-group">
+        <label asp-for="Mileage"></label>
+        <input asp-for="Mileage" class="form-control" />
+        <span asp-validation-for="Mileage" class="text-danger"></span>
+    </div>
+
+    <!-- Engine type -->
+    <div class="form-group">
+        <label asp-for="Engine"></label>
+        <input asp-for="Engine" class="form-control" />
+        <span asp-validation-for="Engine" class="text-danger"></span>
+    </div>
+
+    <!-- Passengers -->
+    <div class="form-group">
+        <label asp-for="CountOfPassenger"></label>
+        <input asp-for="CountOfPassenger" class="form-control" />
+        <span asp-validation-for="CountOfPassenger" class="text-danger"></span>
+    </div>
+
+    <!-- Color -->
+    <div class="form-group">
+        <label asp-for="Color"></label>
+        <select asp-for="Color" class="form-control" asp-items="Html.GetEnumSelectList<CarManager.Models.CarColor>()"></select>
+        <span asp-validation-for="Color" class="text-danger"></span>
+    </div>
+
+    <!-- Garage -->
+    <div class="form-group">
+        <label>Garage</label>
+        <select asp-for="GarageId" class="form-control" asp-items="ViewBag.Garages"></select>
+    </div>
+
+    <!-- Actions -->
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+
+</form>

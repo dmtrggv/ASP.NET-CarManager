@@ -1,0 +1,21 @@
+﻿@model CarManager.Models.EngineModel
+
+@{
+    ViewData["Title"] = "Engine Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<!-- Engine details -->
+<div class="mb-3">
+    <h4>@Model.Code (@Model.TypeEngine)</h4>
+    <p><strong>Manufacturer:</strong> @Model.Manufacturer</p>
+    <p><strong>Production Start:</strong> @Model.DateStarted.ToShortDateString()</p>
+    <p><strong>Production End:</strong> @Model.DateEnded.ToShortDateString()</p>
+    <p><strong>Number of Cars Using This Engine:</strong> @Model.Cars?.Count ?? 0</p>
+</div>
+
+<!-- Actions -->
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>
+<a asp-action="EngineCars" asp-route-id="@Model.Id" class="btn btn-secondary">View Assigned Cars</a>

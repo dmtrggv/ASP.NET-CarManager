@@ -1,0 +1,63 @@
+﻿@model CarManager.Models.GarageModel
+
+@{
+    ViewData["Title"] = "Edit Garage";
+}
+
+<!-- Title -->
+<h2>@ViewData["Title"]</h2>
+
+<!-- Garage details -->
+<form asp-action="Edit" method="post">
+
+    <!-- ID -->
+    <input type="hidden" asp-for="Id" />
+
+    <!-- Name -->
+    <div class="form-group mb-2">
+        <label asp-for="Name"></label>
+        <input class="form-control" asp-for="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <!-- Address -->
+    <div class="form-group mb-2">
+        <label asp-for="Address"></label>
+        <input class="form-control" asp-for="Address" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <!-- Car capacity -->
+    <div class="form-group mb-2">
+        <label asp-for="Capacity"></label>
+        <input class="form-control" asp-for="Capacity" type="number" />
+    </div>
+
+    <!-- Has security -->
+    <div class="form-check mb-2">
+        <input class="form-check-input" asp-for="HasSecurity" type="checkbox" />
+        <label class="form-check-label" asp-for="HasSecurity">Has Security</label>
+    </div>
+
+    <!-- 24/7 opened -->
+    <div class="form-check mb-2">
+        <input class="form-check-input" asp-for="IsOpen24Hours" type="checkbox" />
+        <label class="form-check-label" asp-for="IsOpen24Hours">Open 24 Hours</label>
+    </div>
+
+    <!-- Rent fee -->
+    <div class="form-group mb-2">
+        <label asp-for="RentFee"></label>
+        <input class="form-control" asp-for="RentFee" type="number" step="0.01" />
+    </div>
+
+    <!-- Actions -->
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+    <a asp-action="AssignCar" asp-route-id="@Model.Id" class="btn btn-success ms-2">Assign Car</a>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

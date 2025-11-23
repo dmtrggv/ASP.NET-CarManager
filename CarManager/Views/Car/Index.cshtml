@@ -1,0 +1,76 @@
+﻿@model IEnumerable<CarManager.Models.CarModel>
+@using CarManager.Models
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Cars";
+
+    var garages = ViewBag.Garages as SelectList;
+    string selectedBrand = ViewBag.SelectedBrand as string;
+    CarColor? selectedColor = ViewBag.SelectedColor as CarColor?;
+}
+
+<h1>Car List</h1>
+
+<div class="d-flex align-items-center mb-3 gap-3">
+
+    <a asp-action="Create" class="btn btn-success">Create New Car</a>
+
+    <form method="get" asp-action="Index" class="d-flex align-items-center gap-2">
+
+        <!-- Filter by Brand -->
+        <input type="text"
+               name="brand"
+               class="form-control"
+               placeholder="Brand..."
+               value="@selectedBrand" />
+
+        <!-- Filter by Color -->
+        <select name="color" class="form-select">
+            <option value="">All Colors</option>
+            @foreach (CarColor color in Enum.GetValues(typeof(CarColor)))
+            {
+                <option value="@color" selected="@(selectedColor == color)">@color</option>
+            }
+        </select>
+
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning">No cars found.</div>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Brand</th>
+                <th>Mileage</th>
+                <th>Passengers</th>
+                <th>Color</th>
+                <th>Garage</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var car in Model)
+            {
+                <tr>
+                    <td>@car.Brand</td>
+                    <td>@car.Mileage</td>
+                    <td>@car.CountOfPassenger</td>
+                    <td>@car.Color</td>
+                    <td>@car.Garage?.Name ?? "N/A"</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@car.Id" class="btn btn-sm btn-primary">Edit</a>
+                        <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-sm btn-info">Details</a>
+                        <a asp-action="Delete" asp-route-id="@car.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,41 @@
+﻿@model List<CarManager.Models.CarModel>
+
+@{
+    ViewData["Title"] = "Cars in Garage";
+    var garageName = ViewBag.GarageName;
+}
+
+<!-- Title -->
+<h2>@ViewBag["Title"]: <b>@garageName</b></h2>
+
+<!-- Car table -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Brand</th>
+            <th>Type Engine</th>
+            <th>Max Speed</th>
+            <th>Color</th>
+            <th>Passengers</th>
+            <th>Production Date</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>@car.Brand</td>
+                <td>@car.Engine</td>
+                <td>@car.Mileage</td>
+                <td>@car.Color</td>
+                <td>@car.CountOfPassenger</td>
+                <td>@car.ProductionDate.ToShortDateString()</td>
+                <td>@car.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Actions -->
+<a asp-action="Index" class="btn btn-secondary">Back to Garages</a>

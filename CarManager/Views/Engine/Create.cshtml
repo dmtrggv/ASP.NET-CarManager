@@ -1,0 +1,50 @@
+﻿@model CarManager.Models.EngineModel
+
+@{
+    ViewData["Title"] = (ViewData["Action"] ?? "Create") + " Engine";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" method="post">
+
+    <!-- Engine code -->
+    <div class="mb-3">
+        <label asp-for="Code" class="form-label"></label>
+        <input asp-for="Code" class="form-control" />
+    </div>
+
+    <!-- Engine type -->
+    <div class="mb-3">
+        <label asp-for="TypeEngine" class="form-label"></label>
+        <select asp-for="TypeEngine" class="form-select">
+            @foreach (var type in Enum.GetValues(typeof(CarManager.Models.EngineType)))
+            {
+                <option value="@type">@type</option>
+            }
+        </select>
+    </div>
+
+	<!-- Manufacturer -->
+    <div class="mb-3">
+        <label asp-for="Manufacturer" class="form-label"></label>
+        <input asp-for="Manufacturer" class="form-control" />
+    </div>
+
+	<!-- Date started -->
+    <div class="mb-3">
+        <label asp-for="DateStarted" class="form-label"></label>
+        <input asp-for="DateStarted" type="date" class="form-control" />
+    </div>
+
+	<!-- Date ended -->
+    <div class="mb-3">
+        <label asp-for="DateEnded" class="form-label"></label>
+        <input asp-for="DateEnded" type="date" class="form-control" />
+    </div>
+
+    <!-- Actions -->
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+
+</form>

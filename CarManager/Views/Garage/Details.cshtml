@@ -1,0 +1,24 @@
+﻿@model CarManager.Models.GarageModel
+
+@{
+    ViewData["Title"] = "Garage Details";
+}
+
+<!-- Title -->
+<h2>@ViewData["Title"]</h2>
+
+<!-- Garage details -->
+<div class="mb-3">
+    <h4>@Model.Name</h4>
+    <p><strong>Address:</strong> @Model.Address</p>
+    <p><strong>Capacity:</strong> @Model.Capacity</p>
+    <p><strong>Has Security:</strong> @(Model.HasSecurity ? "Yes" : "No")</p>
+    <p><strong>Open 24 Hours:</strong> @(Model.IsOpen24Hours ? "Yes" : "No")</p>
+    <p><strong>Monthly Fee:</strong> @Model.RentFee.ToString("C")</p>
+    <p><strong>Number of Cars:</strong> @Model.Cars?.Count ?? 0</p>
+</div>
+
+<!-- Actions -->
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>
+<a asp-action="GarageCars" asp-route-id="@Model.Id" class="btn btn-secondary">View Assigned Cars</a>
