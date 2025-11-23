@@ -1,6 +1,8 @@
 ﻿using CarManager.Models;
 using CarManager.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
 
 namespace CarManager.Controllers
 {
@@ -13,13 +15,35 @@ namespace CarManager.Controllers
             _engineService = engineService;
         }
 
-        public IActionResult Index() => View(_engineService.GetAllEngines());
+        public IActionResult Index(string code, EngineType? type)
+        {
+            var engines = _engineService.GetAllEngines().ToList();
 
-        public IActionResult Details(int id) => View(_engineService.GetEngineById(id));
+            // Filter by Code
+            if (!string.IsNullOrWhiteSpace(code))
+                engines = engines.Where(e => e.Code.ToLower().Contains(code.ToLower())).ToList();
+
+            // Filter by EngineType
+            if (type.HasValue)
+                engines = engines.Where(e => e.TypeEngine == type).ToList();
+
+            ViewBag.SelectedCode = code;
+            ViewBag.SelectedType = type;
+
+            return View(engines);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var engine = _engineService.GetEngineById(id);
+            if (engine == null) return NotFound();
+            return View(engine);
+        }
 
         public IActionResult Create() => View();
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(EngineModel engine)
         {
             if (ModelState.IsValid)
@@ -27,13 +51,18 @@ namespace CarManager.Controllers
                 _engineService.AddEngine(engine);
                 return RedirectToAction("Index");
             }
-
             return View(engine);
         }
 
-        public IActionResult Edit(int id) => View(_engineService.GetEngineById(id));
+        public IActionResult Edit(int id)
+        {
+            var engine = _engineService.GetEngineById(id);
+            if (engine == null) return NotFound();
+            return View(engine);
+        }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(EngineModel engine)
         {
             if (ModelState.IsValid)
@@ -44,9 +73,15 @@ namespace CarManager.Controllers
             return View(engine);
         }
 
-        public IActionResult Delete(int id) => View(_engineService.GetEngineById(id));
+        public IActionResult Delete(int id)
+        {
+            var engine = _engineService.GetEngineById(id);
+            if (engine == null) return NotFound();
+            return View(engine);
+        }
 
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
             _engineService.DeleteEngine(id);

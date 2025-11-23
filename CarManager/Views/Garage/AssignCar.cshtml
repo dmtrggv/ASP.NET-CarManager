@@ -8,6 +8,7 @@
 
 <!-- Title -->
 <h1>@ViewData["Title"]</h1>
+<hr />
 
 <form asp-action="AssignCar" method="post">
 
@@ -27,6 +28,7 @@
     </div>
 
     <!-- Actions -->
+    <br /><hr />
     <button type="submit" class="btn btn-primary">Assign</button>
     <a asp-action="Details" asp-route-id="@garageId" class="btn btn-secondary">Back</a>
 

@@ -1,5 +1,6 @@
 ﻿using CarManager.Data;
 using CarManager.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,8 +15,17 @@ namespace CarManager.Services
             _context = context;
         }
 
-        public IEnumerable<EngineModel> GetAllEngines() => _context.Engines.ToList();
-        public EngineModel GetEngineById(int id) => _context.Engines.Find(id);
+        public IEnumerable<EngineModel> GetAllEngines() => _context.Engines.Include(e => e.Cars).ToList();
+
+        public EngineModel GetEngineById(int id)
+        {
+            var eng = _context.Engines.Include(e => e.Cars)
+                                      .FirstOrDefault(e => e.Id == id);
+
+            if (eng == null) throw new KeyNotFoundException($"Engine.{id} not found!");
+
+            return eng;
+        }
 
         public void AddEngine(EngineModel engine)
         {

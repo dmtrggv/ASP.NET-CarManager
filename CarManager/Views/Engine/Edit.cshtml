@@ -1,65 +1,53 @@
-﻿@model CarManager.Models.CarModel
-@using Microsoft.AspNetCore.Mvc.Rendering
+﻿@model CarManager.Models.EngineModel
 
 @{
-    ViewData["Title"] = "Edit Car";
+    ViewData["Title"] = "Edit Engine";
 }
 
-<h2>Edit Car</h2>
+<h2>@ViewData["Title"]</h2>
 
 <form asp-action="Edit" method="post">
 
+    <!-- Hidden ID -->
     <input type="hidden" asp-for="Id" />
 
-    <!-- Brand -->
+    <!-- Engine code -->
     <div class="mb-3">
-        <label asp-for="Brand" class="form-label"></label>
-        <input asp-for="Brand" class="form-control" />
-        <span asp-validation-for="Brand" class="text-danger"></span>
+        <label asp-for="Code" class="form-label"></label>
+        <input asp-for="Code" class="form-control" />
+        <span asp-validation-for="Code" class="text-danger"></span>
     </div>
 
-    <!-- Mileage -->
+    <!-- Engine type -->
     <div class="mb-3">
-        <label asp-for="Mileage" class="form-label"></label>
-        <input asp-for="Mileage" type="number" class="form-control" />
-        <span asp-validation-for="Mileage" class="text-danger"></span>
-    </div>
-
-    <!-- Engine dropdown -->
-    <div class="mb-3">
-        <label asp-for="EngineId" class="form-label">Engine</label>
-        <select asp-for="EngineId" class="form-select" asp-items="ViewBag.Engines">
-            <option value="">-- Select Engine --</option>
+        <label asp-for="TypeEngine" class="form-label"></label>
+        <select asp-for="TypeEngine" class="form-select" asp-items="Html.GetEnumSelectList<CarManager.Models.EngineType>()">
+            <option value="">No Type</option>
         </select>
-        <span asp-validation-for="EngineId" class="text-danger"></span>
+        <span asp-validation-for="TypeEngine" class="text-danger"></span>
     </div>
 
-    <!-- Passengers -->
+    <!-- Manufacturer -->
     <div class="mb-3">
-        <label asp-for="CountOfPassenger" class="form-label"></label>
-        <input asp-for="CountOfPassenger" type="number" class="form-control" />
-        <span asp-validation-for="CountOfPassenger" class="text-danger"></span>
+        <label asp-for="Manufacturer" class="form-label"></label>
+        <input asp-for="Manufacturer" class="form-control" />
     </div>
 
-    <!-- Color -->
+    <!-- Date started -->
     <div class="mb-3">
-        <label asp-for="Color" class="form-label"></label>
-        <select asp-for="Color" class="form-select" asp-items="Html.GetEnumSelectList<CarManager.Models.CarColor>()">
-            <option value="">-- Select Color --</option>
-        </select>
-        <span asp-validation-for="Color" class="text-danger"></span>
+        <label asp-for="DateStarted" class="form-label"></label>
+        <input asp-for="DateStarted" type="date" class="form-control" />
+        <span asp-validation-for="DateStarted" class="text-danger"></span>
     </div>
 
-    <!-- Garage dropdown -->
+    <!-- Date ended -->
     <div class="mb-3">
-        <label asp-for="GarageId" class="form-label">Garage</label>
-        <select asp-for="GarageId" class="form-select" asp-items="ViewBag.Garages">
-            <option value="">-- Select Garage --</option>
-        </select>
-        <span asp-validation-for="GarageId" class="text-danger"></span>
+        <label asp-for="DateEnded" class="form-label"></label>
+        <input asp-for="DateEnded" type="date" class="form-control" />
+        <span asp-validation-for="DateEnded" class="text-danger"></span>
     </div>
 
-    <!-- Buttons -->
+    <!-- Actions -->
     <button type="submit" class="btn btn-primary">Save</button>
     <a asp-action="Index" class="btn btn-secondary">Back</a>
 

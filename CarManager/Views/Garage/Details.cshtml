@@ -5,11 +5,11 @@
 }
 
 <!-- Title -->
-<h2>@ViewData["Title"]</h2>
+<h2>@ViewData["Title"] for <b><i>@Model.Name</i></b></h2>
+<hr />
 
 <!-- Garage details -->
 <div class="mb-3">
-    <h4>@Model.Name</h4>
     <p><strong>Address:</strong> @Model.Address</p>
     <p><strong>Capacity:</strong> @Model.Capacity</p>
     <p><strong>Has Security:</strong> @(Model.HasSecurity ? "Yes" : "No")</p>
@@ -19,6 +19,7 @@
 </div>
 
 <!-- Actions -->
+<hr />
 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
 <a asp-action="Index" class="btn btn-secondary">Back</a>
 <a asp-action="GarageCars" asp-route-id="@Model.Id" class="btn btn-secondary">View Assigned Cars</a>

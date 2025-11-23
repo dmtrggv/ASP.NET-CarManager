@@ -1,20 +1,23 @@
 ﻿@model CarManager.Models.CarModel
 
 @{
-	var garageName = Model.Garage?.Name ?? "No Garage Assigned";
-	ViewData["Title"] = "Car Details - " + Model.Brand;
+	var garageName = (Model.Garage != null) ? $"{Model.Garage.Name} ({Model.Garage.Address})" : "No Garage Assigned";
+	var engineCode = (Model.Engine != null) ? $"{Model.Engine.Code} ({Model.Engine.TypeEngine}) developed by {Model.Engine.Manufacturer}" : "No Engine Assigned";
+	ViewData["Title"] = "Car Details";
 }
 
 <!-- Title -->
-<h1>@ViewData["Title"]</h1>
+<h1>@ViewData["Title"] for <b><i>@Model.Brand</i></b></h1>
+<hr />
 
 <!-- Car parametters -->
 <p>Max Speed: @Model.Mileage</p>
-<p>Type Engine: @Model.Engine</p>
-<p>Passengers: @Model.CountOfPassenger</p>
+<p>Type Engine: @engineCode</p>
+<p>Passengers: @Model.CountOfPassenger buddies</p>
 <p>Color: @Model.Color</p>
 <p>Garage: @garageName</p>
 
 <!-- Actions -->
+<hr />
 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
 <a asp-action="Index" class="btn btn-secondary">Back</a>

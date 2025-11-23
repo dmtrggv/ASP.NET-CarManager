@@ -12,6 +12,7 @@
     <div class="mb-3">
         <label asp-for="Code" class="form-label"></label>
         <input asp-for="Code" class="form-control" />
+        <span asp-validation-for="Code" class="text-danger"></span>
     </div>
 
     <!-- Engine type -->
@@ -35,12 +36,14 @@
     <div class="mb-3">
         <label asp-for="DateStarted" class="form-label"></label>
         <input asp-for="DateStarted" type="date" class="form-control" />
+        <span asp-validation-for="DateStarted" class="text-danger"></span>
     </div>
 
 	<!-- Date ended -->
     <div class="mb-3">
         <label asp-for="DateEnded" class="form-label"></label>
         <input asp-for="DateEnded" type="date" class="form-control" />
+        <span asp-validation-for="DateEnded" class="text-danger"></span>
     </div>
 
     <!-- Actions -->

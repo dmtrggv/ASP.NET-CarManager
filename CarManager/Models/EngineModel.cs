@@ -20,6 +20,7 @@ namespace CarManager.Models
         public EngineType TypeEngine { get; set; }
 
         [Display(Name = "Start production date")]
+        [DateStartedBeforeEndDate("DateEnded")]
         public DateTime DateStarted { get; set; }
 
         [Display(Name = "End production date")]

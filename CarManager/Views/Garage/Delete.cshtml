@@ -6,11 +6,11 @@
 
 <!-- Title & Desc -->
 <h2>@ViewData["Title"]</h2>
-<h3>Are you sure you want to delete this garage?</h3>
+<h3>Are you sure you want to delete garage <b><i>@Model.Name</i></b>?</h3>
+<hr />
 
 <!-- Garage details-->
 <div>
-    <h4>@Model.Name</h4>
     <p><strong>Address:</strong> @Model.Address</p>
     <p><strong>Capacity:</strong> @Model.Capacity</p>
     <p><strong>Has Security:</strong> @(Model.HasSecurity ? "Yes" : "No")</p>
@@ -19,6 +19,7 @@
 </div>
 
 <!-- Actions -->
+<hr />
 <form asp-action="Delete" method="post">
     <input type="hidden" asp-for="Id" />
     <button type="submit" class="btn btn-danger">Delete</button>

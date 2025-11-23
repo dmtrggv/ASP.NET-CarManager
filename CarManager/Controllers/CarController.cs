@@ -34,6 +34,19 @@ namespace CarManager.Controllers
             return View(cars);
         }
 
+        public IActionResult Details(int id)
+        {
+            var car = _carService.GetCarById(id);
+            if (car == null) return NotFound();
+
+            ViewBag.Garages = new SelectList(_garageService.GetAllGarages(), "Id", "Name", car.GarageId);
+            ViewBag.Engines = new SelectList(_carService.GetAllEngines(), "Id", "Code", car.EngineId);
+
+            return View(car);
+        }
+
+        #region Create
+
         public IActionResult Create()
         {
             ViewBag.Garages = new SelectList(_garageService.GetAllGarages(), "Id", "Name");
@@ -59,18 +72,14 @@ namespace CarManager.Controllers
             return View(car);
         }
 
-        public IActionResult Details(int id)
-        {
-            var car = _carService.GetCarById(id);
-            if (car == null) return NotFound();
-            return View(car);
-        }
+        #endregion
+
+        #region Edit
 
         public IActionResult Edit(int id)
         {
             var car = _carService.GetCarById(id);
-            if (car == null)
-                return NotFound();
+            if (car == null) return NotFound();
 
             ViewBag.Garages = new SelectList(_garageService.GetAllGarages(), "Id", "Name", car.GarageId);
             ViewBag.Engines = new SelectList(_carService.GetAllEngines(), "Id", "Code", car.EngineId);
@@ -80,22 +89,18 @@ namespace CarManager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(CarModel car)
+        public IActionResult Edit(int id, CarModel car)
         {
-            if (ModelState.IsValid)
-            {
-                car.Garage = null;
-                car.Engine = null;
+            if (id != car.Id) return BadRequest();
 
-                _carService.UpdateCar(car);
-                return RedirectToAction("Index");
-            }
+            _carService.UpdateCar(car);
 
-            ViewBag.Garages = new SelectList(_garageService.GetAllGarages(), "Id", "Name", car.GarageId);
-            ViewBag.Engines = new SelectList(_carService.GetAllEngines(), "Id", "Code", car.EngineId);
-
-            return View(car);
+            return RedirectToAction("Index");
         }
+
+        #endregion
+
+        #region Delete
 
         public IActionResult Delete(int id)
         {
@@ -111,5 +116,7 @@ namespace CarManager.Controllers
             _carService.DeleteCar(id);
             return RedirectToAction("Index");
         }
+
+        #endregion
     }
 }

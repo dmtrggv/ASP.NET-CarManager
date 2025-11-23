@@ -6,9 +6,12 @@
 }
 
 <!-- Title -->
-<h2>@ViewBag["Title"]: <b>@garageName</b></h2>
+<h2>@ViewData["Title"]: <b><i>@garageName</i></b></h2>
+<hr />
 
 <!-- Car table -->
+@if (Model.Any())
+{
 <table class="table table-striped">
     <thead>
         <tr>
@@ -36,6 +39,12 @@
         }
     </tbody>
 </table>
+}
+else
+{
+    <div class="alert alert-warning">No cars found in this garage.</div>
+}
 
 <!-- Actions -->
+<br /><hr />
 <a asp-action="Index" class="btn btn-secondary">Back to Garages</a>

@@ -2,22 +2,24 @@
 
 @{
     ViewData["Title"] = "Delete Engine";
+	var carsCount = Model.Cars?.Count ?? 0;
 }
 
 <!-- Title & Desc -->
-<h2>@ViewData["Title"]</h2>
-<h3>Are you sure you want to delete this engine?</h3>
+<h1>@ViewData["Title"]</h1>
+<h3>Are you sure you want to delete engine <b><i>@Model.Code</i></b>?</h3>
+<hr />
 
 <!-- Engine details -->
 <div class="mb-3">
-    <h4>@Model.Code (@Model.TypeEngine)</h4>
-    <p><strong>Manufacturer:</strong> @Model.Manufacturer</p>
-    <p><strong>Production Start:</strong> @Model.DateStarted.ToShortDateString()</p>
-    <p><strong>Production End:</strong> @Model.DateEnded.ToShortDateString()</p>
-    <p><strong>Number of Cars Using This Engine:</strong> @Model.Cars?.Count ?? 0</p>
+    <p><strong>Manufacturer</strong>: @Model.Manufacturer</p>
+    <p><strong>Production Start</strong>: @Model.DateStarted.ToShortDateString()</p>
+    <p><strong>Production End</strong>: @Model.DateEnded.ToShortDateString()</p>
+	<p><strong>Number of Cars Using This Engine</strong>: @carsCount</p>
 </div>
 
 <!-- Actions -->
+<hr />
 <form asp-action="DeleteConfirmed" method="post">
     <input type="hidden" asp-for="Id" />
     <button type="submit" class="btn btn-danger">Delete</button>

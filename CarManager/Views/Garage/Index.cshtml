@@ -2,18 +2,47 @@
 
 @{
     ViewData["Title"] = "Garages";
+    string selectedName = ViewBag.SelectedName as string;
+    string selectedAddress = ViewBag.SelectedAddress as string;
 }
 
-<!-- Title -->
-<h2>@ViewData["Title"]</h2>
+<h1>@ViewData["Title"]</h1>
+<hr />
 
-<!-- Create garage -->
-<p><a asp-action="Create" class="btn btn-primary">Create New Garage</a></p>
+<div class="d-flex align-items-center mb-3 gap-3">
 
-<!-- Garage table -->
-@if (Model.Any())
+    <a asp-action="Create" class="btn btn-primary">Create New Garage</a> •
+
+    <form method="get" asp-action="Index" class="d-flex align-items-center gap-2">
+
+        <!-- Filter by Name -->
+        <input type="text"
+               name="name"
+               class="form-control"
+               placeholder="Garage name..."
+               value="@selectedName" />
+
+        <!-- Filter by Address -->
+        <input type="text"
+               name="address"
+               class="form-control"
+               placeholder="Address..."
+               value="@selectedAddress" />
+
+        <button type="submit" class="btn btn-success">Search</button>
+    </form>
+
+</div>
+
+<hr />
+
+@if (!Model.Any())
 {
-    <table class="table table-striped">
+    <div class="alert alert-warning">No garages found.</div>
+}
+else
+{
+    <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>@Html.DisplayNameFor(model => model.First().Name)</th>
@@ -22,7 +51,6 @@
                 <th>Security</th>
                 <th>Open 24 Hours</th>
                 <th>@Html.DisplayNameFor(model => model.First().RentFee)</th>
-                <th>Number of Cars</th>
                 <th></th>
             </tr>
         </thead>
@@ -36,7 +64,6 @@
                     <td>@(garage.HasSecurity ? "Yes" : "No")</td>
                     <td>@(garage.IsOpen24Hours ? "Yes" : "No")</td>
                     <td>@garage.RentFee.ToString("C")</td>
-                    <td>@garage.Cars?.Count ?? 0</td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@garage.Id" class="btn btn-sm btn-warning">Edit</a>
                         <a asp-action="Details" asp-route-id="@garage.Id" class="btn btn-sm btn-info">Details</a>
@@ -47,8 +74,4 @@
             }
         </tbody>
     </table>
-}
-else
-{
-    <div class="alert alert-warning">No garages found. <b>Create one</b></div>
 }

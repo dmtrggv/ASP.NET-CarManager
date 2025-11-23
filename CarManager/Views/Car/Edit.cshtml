@@ -1,14 +1,14 @@
 ﻿@model CarManager.Models.CarModel
 
 @{
-    ViewData["Title"] = "Create/Edit Car";
-	var ttl = ViewData["Title"].ToString().Contains("Create") ? "Create Car" : "Edit Car";
+    ViewData["Title"] = "Edit Car";
 }
 
 <!-- Title -->
-<h1>@ViewData["Title"]</h1>
+<h1>@ViewData["Title"] <b><i>@Model.Brand</i></b></h1>
+<hr />
 
-<form asp-action="@ttl" method="post">
+<form asp-action="Edit" method="post">
 
     <!-- ID -->
     <input type="hidden" asp-for="Id" />
@@ -29,9 +29,10 @@
 
     <!-- Engine type -->
     <div class="form-group">
-        <label asp-for="Engine"></label>
-        <input asp-for="Engine" class="form-control" />
-        <span asp-validation-for="Engine" class="text-danger"></span>
+        <label>Engine</label>
+        <select asp-for="EngineId" class="form-select" asp-items="ViewBag.Engines">
+            <option value="">No Engine</option>
+        </select>
     </div>
 
     <!-- Passengers -->
@@ -51,10 +52,16 @@
     <!-- Garage -->
     <div class="form-group">
         <label>Garage</label>
-        <select asp-for="GarageId" class="form-control" asp-items="ViewBag.Garages"></select>
+        <select asp-for="GarageId" class="form-select" asp-items="ViewBag.Garages">
+            <option value="">No Garage</option>
+        </select>
     </div>
 
+    <!-- Validation errors -->
+    <div asp-validation-summary="All" class="text-danger"></div>
+
     <!-- Actions -->
+    <br /><hr />
     <button type="submit" class="btn btn-primary">Save</button>
     <a asp-action="Index" class="btn btn-secondary">Back</a>
 

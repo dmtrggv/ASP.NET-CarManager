@@ -10,11 +10,12 @@
     CarColor? selectedColor = ViewBag.SelectedColor as CarColor?;
 }
 
-<h1>Car List</h1>
+<h1>@ViewData["Title"]</h1>
+<hr />
 
 <div class="d-flex align-items-center mb-3 gap-3">
 
-    <a asp-action="Create" class="btn btn-success">Create New Car</a>
+    <a asp-action="Create" class="btn btn-primary">Create New Car</a> •
 
     <form method="get" asp-action="Index" class="d-flex align-items-center gap-2">
 
@@ -34,9 +35,11 @@
             }
         </select>
 
-        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="submit" class="btn btn-success">Search</button>
     </form>
+
 </div>
+<hr />
 
 @if (!Model.Any())
 {
@@ -48,6 +51,7 @@ else
         <thead>
             <tr>
                 <th>Brand</th>
+                <th>Engine code</th>
                 <th>Mileage</th>
                 <th>Passengers</th>
                 <th>Color</th>
@@ -58,12 +62,15 @@ else
         <tbody>
             @foreach (var car in Model)
             {
+				var garageName = car.Garage?.Name ?? "No garage assigned";
+                var engineCode = car.Engine?.Code ?? "No engine assigned";
                 <tr>
                     <td>@car.Brand</td>
+                    <td>@engineCode</td>
                     <td>@car.Mileage</td>
                     <td>@car.CountOfPassenger</td>
                     <td>@car.Color</td>
-                    <td>@car.Garage?.Name ?? "N/A"</td>
+                    <td>@garageName</td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@car.Id" class="btn btn-sm btn-primary">Edit</a>
                         <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-sm btn-info">Details</a>

@@ -1,18 +1,51 @@
 ﻿@model IEnumerable<CarManager.Models.EngineModel>
+@using CarManager.Models
 
 @{
     ViewData["Title"] = "Engines";
+    string selectedCode = ViewBag.SelectedCode as string;
+    EngineType? selectedType = ViewBag.SelectedType as EngineType?;
 }
 
 <h1>@ViewData["Title"]</h1>
+<hr />
 
-<!-- Create engine -->
-<a asp-action="Create" class="btn btn-success mb-2">Create New Engine</a>
+<div class="d-flex align-items-center mb-3 gap-3">
 
-<!-- Engine list -->
-@if (Model.Any())
+    <a asp-action="Create" class="btn btn-primary">Create New Engine</a> •
+
+    <form method="get" asp-action="Index" class="d-flex align-items-center gap-2">
+
+        <!-- Filter by Code -->
+        <input type="text"
+               name="code"
+               class="form-control"
+               placeholder="Engine code..."
+               value="@selectedCode" />
+
+        <!-- Filter by EngineType -->
+        <select name="type" class="form-select">
+            <option value="">All Types</option>
+            @foreach (EngineType type in Enum.GetValues(typeof(EngineType)))
+            {
+                <option value="@type" selected="@(selectedType == type)">@type</option>
+            }
+        </select>
+
+        <button type="submit" class="btn btn-success">Search</button>
+    </form>
+
+</div>
+
+<hr />
+
+@if (!Model.Any())
 {
-    <table class="table table-striped">
+    <div class="alert alert-warning">No engines found.</div>
+}
+else
+{
+    <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>Code</th>
@@ -43,8 +76,4 @@
             }
         </tbody>
     </table>
-}
-else
-{
-    <div class="alert alert-warning">No engines found. <b>Create one</b></div>
 }

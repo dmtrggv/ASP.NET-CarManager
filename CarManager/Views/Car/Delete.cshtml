@@ -1,25 +1,28 @@
 ﻿@model CarManager.Models.CarModel
 
 @{
-	var garageName = Model.Garage?.Name ?? "No Garage Assigned";
-    ViewData["Title"] = "Delete Car - " + Model.Brand;
+	var garageName = (Model.Garage != null) ? $"{Model.Garage.Name} ({Model.Garage.Address})" : "No Garage Assigned";
+    var engineCode = (Model.Engine != null) ? $"{Model.Engine.Code} ({Model.Engine.TypeEngine}) developed by {Model.Engine.Manufacturer}" : "No Engine Assigned";
+    ViewData["Title"] = "Delete Car";
 }
 
 <!-- Title & Desc -->
 <h1>@ViewData["Title"]</h1>
-<h3>Are you sure you want to delete this car?</h3>
+<h3>Are you sure you want to delete car <b><i>@Model.Brand</i></b>?</h3>
+<hr />
 
 <!-- Car parametters -->
 <div>
-    <p>Brand: @Model.Brand</p>
-    <p>Max Speed: @Model.Mileage</p>
-    <p>Type Engine: @Model.Engine</p>
-    <p>Passengers: @Model.CountOfPassenger</p>
-    <p>Color: @Model.Color</p>
-    <p>Garage: @garageName</p>
+    <p><strong>Brand</strong>: @Model.Brand</p>
+    <p><strong>Max Speed</strong>: @Model.Mileage</p>
+    <p><strong>Engine</strong>: @engineCode</p>
+    <p><strong>Passengers</strong>: @Model.CountOfPassenger buddies</p>
+    <p><strong>Color</strong>: @Model.Color</p>
+    <p><strong>Garage</strong>: @garageName</p>
 </div>
 
 <!-- Actions -->
+<hr />
 <form asp-action="Delete" method="post">
     <input type="hidden" asp-for="Id" />
     <button type="submit" class="btn btn-danger">Delete</button>

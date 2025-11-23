@@ -20,7 +20,16 @@ namespace CarManager.Services
                                                      .Include(c => c.Garage)
                                                      .ToList();
 
-        public CarModel GetCarById(int id) => _context.CarModels.Find(id);
+        public CarModel GetCarById(int id)
+        {
+            var car = _context.CarModels.Include(c => c.Engine)
+                              .Include(c => c.Garage)
+                              .FirstOrDefault(c => c.Id == id);
+
+            if (car == null) throw new KeyNotFoundException($"Car.{id} not found!");
+
+            return car;
+        }
 
         public void AddCar(CarModel car)
         {
@@ -30,7 +39,18 @@ namespace CarManager.Services
 
         public void UpdateCar(CarModel car)
         {
-            _context.CarModels.Update(car);
+            var existingCar = _context.CarModels.Find(car.Id);
+            if (existingCar == null) return;
+
+            existingCar.Brand = car.Brand;
+            existingCar.Mileage = car.Mileage;
+            existingCar.CountOfPassenger = car.CountOfPassenger;
+            existingCar.Color = car.Color;
+            existingCar.GarageId = car.GarageId;
+            existingCar.EngineId = car.EngineId;
+            existingCar.Price = car.Price;
+            existingCar.ProductionDate = car.ProductionDate;
+
             _context.SaveChanges();
         }
 

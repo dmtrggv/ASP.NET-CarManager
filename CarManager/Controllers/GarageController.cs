@@ -1,6 +1,7 @@
 ﻿using CarManager.Models;
 using CarManager.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace CarManager.Controllers
 {
@@ -13,9 +14,21 @@ namespace CarManager.Controllers
             _garageService = garageService;
         }
 
-        public IActionResult Index()
+        // Index с филтър по Name и Address
+        public IActionResult Index(string name, string address)
         {
-            return View(_garageService.GetAllGarages());
+            var garages = _garageService.GetAllGarages().ToList();
+
+            if (!string.IsNullOrWhiteSpace(name))
+                garages = garages.Where(g => g.Name.ToLower().Contains(name.ToLower())).ToList();
+
+            if (!string.IsNullOrWhiteSpace(address))
+                garages = garages.Where(g => g.Address.ToLower().Contains(address.ToLower())).ToList();
+
+            ViewBag.SelectedName = name;
+            ViewBag.SelectedAddress = address;
+
+            return View(garages);
         }
 
         public IActionResult Details(int id)
@@ -25,10 +38,7 @@ namespace CarManager.Controllers
             return View(garage);
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create() => View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -39,7 +49,6 @@ namespace CarManager.Controllers
                 _garageService.AddGarage(garage);
                 return RedirectToAction(nameof(Index));
             }
-
             return View(garage);
         }
 
