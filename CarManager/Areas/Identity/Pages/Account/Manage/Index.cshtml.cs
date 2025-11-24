@@ -25,7 +25,7 @@ namespace CarManager.Areas.Identity.Pages.Account.Manage
             _signInManager = signInManager;
         }
 
-        public string Role { get; set; } = "";
+        public string Role { get; set; } = "No specific role";
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -73,6 +73,9 @@ namespace CarManager.Areas.Identity.Pages.Account.Manage
             {
                 PhoneNumber = phoneNumber
             };
+
+            var roles = await _userManager.GetRolesAsync(user);
+            Role = roles.Any() ? roles.First() : "No specific role";
         }
 
         public async Task<IActionResult> OnGetAsync()

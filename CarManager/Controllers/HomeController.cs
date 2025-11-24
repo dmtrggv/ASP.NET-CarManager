@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using CarManager.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarManager.Controllers

@@ -11,7 +11,11 @@
 
 <div class="d-flex align-items-center mb-3 gap-3">
 
-    <a asp-action="Create" class="btn btn-primary">Create New Garage</a> •
+    @if (User.IsInRole("admin"))
+    {
+        <a asp-action="Create" class="btn btn-primary">Create New Garage</a>
+        <span> | </span>
+    }
 
     <form method="get" asp-action="Index" class="d-flex align-items-center gap-2">
 
@@ -65,10 +69,15 @@ else
                     <td>@(garage.IsOpen24Hours ? "Yes" : "No")</td>
                     <td>@garage.RentFee.ToString("C")</td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@garage.Id" class="btn btn-sm btn-warning">Edit</a>
                         <a asp-action="Details" asp-route-id="@garage.Id" class="btn btn-sm btn-info">Details</a>
-                        <a asp-action="Delete" asp-route-id="@garage.Id" class="btn btn-sm btn-danger">Delete</a>
-                        <a asp-action="GarageCars" asp-route-id="@garage.Id" class="btn btn-info btn-sm">View Cars</a>
+                        <a asp-action="GarageCars" asp-route-id="@garage.Id" class="btn btn-sm btn-info">View Cars</a>
+
+                        @if (User.IsInRole("admin"))
+                        {
+                            <span> | </span>
+                            <a asp-action="Edit" asp-route-id="@garage.Id" class="btn btn-sm btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@garage.Id" class="btn btn-sm btn-danger">Delete</a>
+                        }
                     </td>
                 </tr>
             }

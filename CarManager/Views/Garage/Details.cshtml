@@ -5,7 +5,7 @@
 }
 
 <!-- Title -->
-<h2>@ViewData["Title"] for <b><i>@Model.Name</i></b></h2>
+<h1>@ViewData["Title"] for <b><i>@Model.Name</i></b></h1>
 <hr />
 
 <!-- Garage details -->
@@ -21,5 +21,5 @@
 <!-- Actions -->
 <hr />
 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-<a asp-action="Index" class="btn btn-secondary">Back</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a> • 
 <a asp-action="GarageCars" asp-route-id="@Model.Id" class="btn btn-secondary">View Assigned Cars</a>

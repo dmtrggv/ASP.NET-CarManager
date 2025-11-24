@@ -4,7 +4,8 @@
     ViewData["Title"] = "Edit Engine";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h1>@ViewData["Title"] <b><i>@Model.Code</i></b></h1>
+<hr />
 
 <form asp-action="Edit" method="post">
 
@@ -48,6 +49,7 @@
     </div>
 
     <!-- Actions -->
+    <br /><hr />
     <button type="submit" class="btn btn-primary">Save</button>
     <a asp-action="Index" class="btn btn-secondary">Back</a>
 

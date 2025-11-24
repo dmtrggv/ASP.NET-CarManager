@@ -1,8 +1,8 @@
 ﻿using CarManager.Models;
 using CarManager.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Linq;
 
 namespace CarManager.Controllers
 {
@@ -47,6 +47,7 @@ namespace CarManager.Controllers
 
         #region Create
 
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             ViewBag.Garages = new SelectList(_garageService.GetAllGarages(), "Id", "Name");
@@ -76,6 +77,7 @@ namespace CarManager.Controllers
 
         #region Edit
 
+        [Authorize(Roles = "admin")]
         public IActionResult Edit(int id)
         {
             var car = _carService.GetCarById(id);
@@ -102,6 +104,7 @@ namespace CarManager.Controllers
 
         #region Delete
 
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(int id)
         {
             var car = _carService.GetCarById(id);

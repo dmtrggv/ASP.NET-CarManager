@@ -12,7 +12,11 @@
 
 <div class="d-flex align-items-center mb-3 gap-3">
 
-    <a asp-action="Create" class="btn btn-primary">Create New Engine</a> •
+    @if (User.IsInRole("admin"))
+    {
+        <a asp-action="Create" class="btn btn-primary">Create New Engine</a>
+        <span> | </span>
+    }
 
     <form method="get" asp-action="Index" class="d-flex align-items-center gap-2">
 
@@ -68,9 +72,14 @@ else
                     <td>@engine.DateEnded.ToShortDateString()</td>
                     <td>@engine.Cars.Count()</td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@engine.Id" class="btn btn-sm btn-primary">Edit</a>
                         <a asp-action="Details" asp-route-id="@engine.Id" class="btn btn-sm btn-info">Details</a>
-                        <a asp-action="Delete" asp-route-id="@engine.Id" class="btn btn-sm btn-danger">Delete</a>
+
+                        @if (User.IsInRole("admin"))
+                        {
+                            <span> | </span>
+                            <a asp-action="Edit" asp-route-id="@engine.Id" class="btn btn-sm btn-primary">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@engine.Id" class="btn btn-sm btn-danger">Delete</a>
+                        }
                     </td>
                 </tr>
             }

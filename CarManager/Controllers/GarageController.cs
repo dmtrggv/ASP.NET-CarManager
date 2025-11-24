@@ -1,7 +1,7 @@
 ﻿using CarManager.Models;
 using CarManager.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManager.Controllers
 {
@@ -14,7 +14,6 @@ namespace CarManager.Controllers
             _garageService = garageService;
         }
 
-        // Index с филтър по Name и Address
         public IActionResult Index(string name, string address)
         {
             var garages = _garageService.GetAllGarages().ToList();
@@ -38,6 +37,7 @@ namespace CarManager.Controllers
             return View(garage);
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Create() => View();
 
         [HttpPost]
@@ -52,6 +52,7 @@ namespace CarManager.Controllers
             return View(garage);
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Edit(int id)
         {
             var garage = _garageService.GetGarageById(id);
@@ -77,6 +78,7 @@ namespace CarManager.Controllers
             return View(garage);
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(int id)
         {
             var garage = _garageService.GetGarageById(id);
@@ -92,6 +94,7 @@ namespace CarManager.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult AssignCar(int id)
         {
             var garage = _garageService.GetGarageById(id);

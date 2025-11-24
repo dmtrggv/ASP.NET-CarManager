@@ -1,8 +1,7 @@
 ﻿using CarManager.Models;
 using CarManager.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManager.Controllers
 {
@@ -40,6 +39,7 @@ namespace CarManager.Controllers
             return View(engine);
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Create() => View();
 
         [HttpPost]
@@ -54,6 +54,7 @@ namespace CarManager.Controllers
             return View(engine);
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Edit(int id)
         {
             var engine = _engineService.GetEngineById(id);
@@ -73,6 +74,7 @@ namespace CarManager.Controllers
             return View(engine);
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(int id)
         {
             var engine = _engineService.GetEngineById(id);
