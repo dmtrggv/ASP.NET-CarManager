@@ -5,9 +5,9 @@ CarManager is a **university project** built using ASP.NET Core.
 The application provides a simple system for managing cars — adding, editing, deleting, and viewing car records.
 
 ## Technologies Used
-- ASP.NET Core 10 (MVC / Razor Pages)
+- ASP.NET Core 9 (MVC / Razor Pages)
 - Microsoft ASP.NET Core Identity
-- Entity Framework Core 10  
+- Entity Framework Core 9  
   - SQLite Provider  
   - EF Core Tools & Design-time Services
 - C#
