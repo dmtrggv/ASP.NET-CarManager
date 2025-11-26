@@ -21,3 +21,10 @@ The application provides a simple system for managing cars — adding, editing, 
 ### 1. Clone the repository
 ```bash
 git clone https://github.com/dmtrggv/ASP.NET-CarManager.git
+
+### 2. Make migrations
+```bash
+dotnet clean
+dotnet build
+Migration-Add TestMigrationName
+Update-Database
