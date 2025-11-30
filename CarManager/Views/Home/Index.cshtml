@@ -2,7 +2,40 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mt-5">
+    <h1 class="display-4 mb-3">Welcome to Car Manager!</h1>
+    <p class="lead mb-4">
+        Easily manage, add, and browse cars through this simple and clean ASP.NET application.
+    </p>
+
+    <a class="btn btn-primary btn-lg" asp-controller="Car" asp-action="Index">
+        View Cars
+    </a>
+</div>
+
+<hr class="my-5" />
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h3 class="card-title">About the Project</h3>
+                <p class="card-text">
+                    This application is built with ASP.NET Core MVC and provides full CRUD functionality
+                    for managing cars. It is a practical project designed to demonstrate working with
+                    models, controllers, views, and database integration using Entity Framework Core.
+                </p>
+
+                <h3 class="card-title mt-4">About Me</h3>
+                <p class="card-text">
+                    My name is Dimitar — I’m interested in web development and created this project as a
+                    way to practice ASP.NET Core, Entity Framework, and building clean MVC applications.
+                </p>
+
+                <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="About">
+                    Learn more
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

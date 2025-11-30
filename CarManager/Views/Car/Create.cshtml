@@ -5,7 +5,8 @@
     ViewData["Title"] = "Create Car";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h1>@ViewData["Title"]</h1>
+<hr />
 
 <form asp-action="Create" method="post">
 
@@ -74,6 +75,7 @@
         <span asp-validation-for="GarageId" class="text-danger"></span>
     </div>
 
+	<hr />
     <button type="submit" class="btn btn-primary">Create</button>
     <a asp-action="Index" class="btn btn-secondary">Back</a>
 
