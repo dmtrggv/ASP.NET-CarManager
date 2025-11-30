@@ -30,5 +30,5 @@ git clone https://github.com/dmtrggv/ASP.NET-CarManager.git
 ```bash
 PK> dotnet clean
 PK> dotnet build
-PK> Migration-Add TestMigrationName
+PK> Add-Migration TestMigrationName
 PK> Update-Database
